@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfocus.bi.mappers.user">
+	<!-- 로그인 성공한 사용자 정보 가져오기 -->
+	<select id="do_login" parameterType="com.dfocus.bi.vo.UserVo"
+	 resultType="com.dfocus.bi.vo.UserVo">
+		SELECT user_id,user_nm,user_pwd,user_nm,pm,user_email
+		FROM USER_TB
+		WHERE user_id = #{userId} AND user_pwd = #{userPwd}
+	</select>
+	<!-- 로그인 성공 여부 확인 -->
+	<select id="do_logincheck" parameterType="com.dfocus.bi.vo.UserVo"
+	 resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM USER_TB
+		WHERE user_id = #{userId} AND user_pwd = #{userPwd}
+	</select>
+	
+	<!-- 사용자 리스트 출력 -->
+	<select id="do_ListSearch" resultType="com.dfocus.bi.vo.UserVo">
+	SELECT user_id,user_pwd,user_nm,pm,user_email
+	FROM
+    USER_TB
+	</select>
+</mapper>
