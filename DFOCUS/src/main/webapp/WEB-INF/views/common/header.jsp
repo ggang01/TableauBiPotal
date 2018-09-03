@@ -30,7 +30,7 @@
 </head>
 <body>
 <c:choose>
-<c:when test="${Permission.pm eq 3}">
+<c:when test="${userVo.pm eq 3}">
 <nav style="background-color:#232323;">
 		<div class="headermenu" style="float: right; rightpadding: 10px;">
 			<a class="glyphicon glyphicon-home" href="main">홈으로</a>
@@ -41,7 +41,7 @@
 </nav>
 </c:when>
 
-<c:when test="${Permission.pm < 3}">
+<c:when test="${userVo.pm < 3}">
 <nav style="background-color:#232323;">
 		<div class="headermenu" style="float: right; rightpadding: 10px;">
 				<a class="glyphicon glyphicon-home" href="main">홈으로</a>

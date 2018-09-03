@@ -23,23 +23,44 @@ public class UserCtr {
 	@RequestMapping(value="/userList",method = RequestMethod.GET )
 	public String getUserList(HttpServletRequest req
 			,Model model) {
+		logger.info("UserCtr.getUserList Start>>>>>>>>>>>>>>>>>>>>>");
 		ArrayList <UserVo> list=new ArrayList<>();
 		list=(ArrayList<UserVo>) userSvc.do_search();
 		model.addAttribute("list", list);
+		logger.info("UserCtr.getUserList End>>>>>>>>>>>>>>>>>>>>>");
 		return "admin/userMg";
 	}
-	@RequestMapping(value="/DeleteUser",method = RequestMethod.GET )
+	@RequestMapping(value="/deleteUser",method = RequestMethod.GET )
 	public String deleteUser(HttpServletRequest req
 			,Model model) {
 		UserVo userVo=new UserVo();
 		String userId=req.getParameter("userId");
-		String pm=req.getParameter("pm");
-		logger.info("삭제할 데이터"+userId+"   "+pm);
+		logger.info("삭제할 데이터"+userId);
+		userVo.setUserId(userId);
 		userSvc.do_delete(userVo);
 		ArrayList <UserVo> list=new ArrayList<>();
 		list=(ArrayList<UserVo>) userSvc.do_search();
 		model.addAttribute("list", list);
-		return "admin/userMg";
+		return "redirect:userList";
+	}
+	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
+	public String createUser(HttpServletRequest req,Model model,UserVo uservo){
+		logger.info(uservo.getUserNm());
+		userSvc.do_insert(uservo);
+		return "redirect:userList";
+		
+	}
+	@RequestMapping("/updateUser")
+	public String updateUser(HttpServletRequest req,Model model,UserVo uservo){
+		String userId=req.getParameter("userId");
+		String pm=req.getParameter("pm");
+		UserVo userVo=new UserVo();
+		userVo.setUserId(userId);
+		userVo.setPm(Integer.parseInt(pm));
+		userSvc.do_update(userVo);
+		
+		return "redirect:userList";
+		
 	}
 	
 }

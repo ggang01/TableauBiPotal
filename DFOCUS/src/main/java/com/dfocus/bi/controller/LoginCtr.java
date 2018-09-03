@@ -74,8 +74,7 @@ public class LoginCtr {
 			 model.addAttribute("message", "인증되지 않은 사용자입니다." );
 			 return "home";
 		}
-		session.setAttribute("id", userVo.getUserId());
-		model.addAttribute("userVo", userVo );
+		session.setAttribute("userVo", userVo);
 		model.addAttribute("ticket", ticket );
 		return "common/main";
 	}
@@ -83,7 +82,7 @@ public class LoginCtr {
 	public String logout(HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		if(session!=null) {
-			session.invalidate();
+			session.removeAttribute("userVo");
 		}
 		logger.info("세선종료");
 		
@@ -91,20 +90,9 @@ public class LoginCtr {
 		
 	}
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(HttpServletRequest req){
-		
+	public String main(HttpServletRequest req,Model model){
+
 		return "common/main";
-		
-	}
-	@RequestMapping(value = "/CreateUser", method = RequestMethod.POST)
-	public String createUser(HttpServletRequest req){
-		String userId= req.getParameter("userId");
-		String userPwd=req.getParameter("userPwd");
-		String userEmail=req.getParameter("userEmail");
-		String userNm=req.getParameter("userNm");
-		String pm=req.getParameter("pm");
-		logger.info(userId);
-		return "admin/userMg";
 		
 	}
 

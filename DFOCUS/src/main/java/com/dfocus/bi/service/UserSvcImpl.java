@@ -13,9 +13,9 @@ public class UserSvcImpl implements UserSvc {
 	@Autowired
 	private UserDao userDao;
 	@Override
-	public int do_add(DTO dto) {
+	public int do_insert(DTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDao.do_insert(dto);
 	}
 
 	@Override
@@ -27,13 +27,13 @@ public class UserSvcImpl implements UserSvc {
 	@Override
 	public int do_delete(DTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDao.do_delete(dto);
 	}
 
 	@Override
 	public int do_update(DTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDao.do_update(dto);
 	}
 
 	@Override

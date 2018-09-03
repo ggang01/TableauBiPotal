@@ -5,7 +5,7 @@ import java.util.List;
 import com.dfocus.bi.common.DTO;
 
 public interface UserSvc {
-	public int do_add(DTO dto); /** �궫�엯*/
+	public int do_insert(DTO dto); /** �궫�엯*/
 	
 	public List<?> do_search(); /** 寃��깋*/
 	

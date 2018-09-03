@@ -54,20 +54,21 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int do_insert(DTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		String statement = this.namespace+".do_insertUser";
+		
+		return this.sqlSessionTemplate.insert(statement,dto);
 	}
 
 	@Override
 	public int do_update(DTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		String statement = this.namespace+".do_updateUser";
+		return this.sqlSessionTemplate.update(statement,dto);
 	}
 
 	@Override
 	public int do_delete(DTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		String statement = this.namespace+".do_deleteUser";
+		return this.sqlSessionTemplate.delete(statement,dto);
 	}
 
 }

@@ -1,6 +1,15 @@
+<%@page import="com.dfocus.bi.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+UserVo userVo=(UserVo)session.getAttribute("userVo");
+if(userVo.getUserId()==null){
+	response.sendRedirect(":/");
+}
+	
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +43,9 @@
 		var pm=$("#pm option:selected").val();
 		alert(pm);
 } */
-$(document).ready( function() {
+/* $(document).ready( function() {
 	$("#deleteBtn").click(function(){
+		alert("어흥");		
 		if(false==confirm("삭제 하시겠습니까?"))return;
 		var checkBtn = $(this);
 		// checkBtn.parent() : checkBtn의 부모는 <td>이다.
@@ -44,36 +54,46 @@ $(document).ready( function() {
 		var td = tr.children();
 		var pm=$("#pm option:selected").val();
 		var userId = td.eq(0).text();
-		location.href="DeleteUser?userId="+userId+"&pm="+pm;
+		location.href="deleteUser?userId="+userId+"&pm="+pm;
 
 		}); 
-} );
+} ); */
+function deleteUser(userId) {
+	if(false==confirm("삭제 하시겠습니까?"))return;
+	location.href="deleteUser?userId="+userId;
+}
+function updateUser(userId) {
+	if(false==confirm("수정 하시겠습니까?"))return;
+	var checkBtn = $(this);
+	var tr = checkBtn.parent().parent();
+	var td = tr.children();
+	var pm=$("#pm option:selected").val();
+	location.href="updateUser?userId="+userId+"&pm="+pm;
+}
 function popUp(){
 	$('#myModal').modal("show");
 };
 
 function formChk(){
-		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]+[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		if(!regExp.test(document.joinForm.userEmail.value)){
-		  alert('email형식을 확인 하세요.'); 
-          return false;    		
-		}
 		if(document.joinForm.userId.value==''){
-	      alert("id를 입력하세요!!");
+	      alert("아이디를 입력하세요!!");
 	      document.joinForm.userId.focus();
+	      return false;
 	    }
-		/*else if(document.joinForm.userPwd.value==''){
-	      alert("password를 입력하세요!!");    
+		else if(document.joinForm.userPwd.value==''){
+	      alert("패스워드를 입력하세요!!");    
 	      document.joinForm.userPwd.focus();
+	      return false; 
 	    }
-		}else if(document.joinForm.userNm.value==''){
+		else if(document.joinForm.userNm.value==''){
     	  alert("이름을 입력하세요!!");    
     	  document.joinForm.userNm.focus();
+    	  return false; 
   		}
 	    else{
 	       document.joinForm.submit(); 
 	       return true;
-	    } */
+	    } 
 
 		
  };
@@ -84,7 +104,6 @@ function formChk(){
 
 <jsp:include page="../common/header.jsp"/>
 
-<c:if test="${!empty sessionScope.id}">
 <button class="btn btn-danger" onclick="popUp();" style="margin-bottom: 30px; margin-top: 20px;">사용자 추가</button>
 <table id="listTable" class="table table-striped table-hover table-bordered">
     <thead>
@@ -111,7 +130,8 @@ function formChk(){
 			        	</select>
 			        </td>
 			        <td class="text-center"><c:out value="${userVo.userEmail}"/></td>
-			        <td class="text-center"><button class="btn btn-success">수정</button><button id="deleteBtn" class="btn btn-danger" onclick="dodelete();">삭제</button></td>
+			        <td class="text-center"><button class="btn btn-success" onclick="javascript:updateUser('${userVo.userId}');">수정</button>
+			        <button class="btn btn-danger" onclick="javascript:deleteUser('${userVo.userId}');">삭제</button></td>
 			     </tr>
 			     
 
@@ -120,7 +140,6 @@ function formChk(){
       </c:choose>
      </tbody>         
   </table>
-</c:if>
  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -130,11 +149,12 @@ function formChk(){
         <div class="modal-header" style="background-color: #FBB00D;">
           <h4 class="modal-title">사용자 추가</h4>
         </div>
-      	<form action="CreateUser" class="form" id="joinForm" method="post" onSubmit="formChk();">
- 
+      	<form action="insertUser" class="form" name="joinForm" id="joinForm" method="post" onsubmit="return formChk()">
+ 				 <input type="hidden" name="mode" id="mode" value="insert">
                  <label class="col-lg-4 control-label">아이디</label>
                  <div class="col-lg-8">
-                        <input type="text" name="userId" id="userId" class="form-control" placeholder="아이디"/>                                      
+
+                       <input type="text" name="userId" id="userId" class="form-control" placeholder="아이디"/>                                      
                  </div>
                  <label class="col-lg-4 control-label">비밀번호</label>
                  <div class="col-lg-8">

@@ -1,6 +1,15 @@
+<%@page import="com.dfocus.bi.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+UserVo userVo=(UserVo)session.getAttribute("userVo");
+if(userVo.getUserId()==null){
+	response.sendRedirect(":/");
+}
+	
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,9 +66,6 @@
 </head>
 <body  onload="initViz('${ticket}')";>
 <!-- header -->
-<c:if test="${!empty userVo}">
-<c:set var = "Permission" scope = "session" value = "${userVo}"/>
-</c:if>
 <jsp:include page="../common/header.jsp"/>
 
 <div id="vizContainer" style="width:800px; height:700px; position:absolute;
