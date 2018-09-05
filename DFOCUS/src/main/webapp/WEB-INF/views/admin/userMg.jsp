@@ -17,19 +17,20 @@ if(userVo.getUserId()==null){
 <!-- JQuery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 
-<!-- Bootstrap 반응형 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Bootstrap core CSS-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <!-- Custom fonts for this template-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-<!--  Bootstrap theme -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 
-<!-- Bootstrap JavaScript -->
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/css/sb-admin.css" rel="stylesheet">
+    
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <title>Dfocus</title>
 
 <script>
@@ -62,12 +63,12 @@ function deleteUser(userId) {
 	if(false==confirm("삭제 하시겠습니까?"))return;
 	location.href="deleteUser?userId="+userId;
 }
-function updateUser(userId) {
+function updateUser(userId,i) {
 	if(false==confirm("수정 하시겠습니까?"))return;
 	var checkBtn = $(this);
 	var tr = checkBtn.parent().parent();
 	var td = tr.children();
-	var pm=$("#pm option:selected").val();
+	var pm=$("#pm"+i+" option:selected").val();
 	location.href="updateUser?userId="+userId+"&pm="+pm;
 }
 function popUp(){
@@ -101,9 +102,6 @@ function formChk(){
 
 </head>
 <body>
-
-<jsp:include page="../common/header.jsp"/>
-
 <button class="btn btn-danger" onclick="popUp();" style="margin-bottom: 30px; margin-top: 20px;">사용자 추가</button>
 <table id="listTable" class="table table-striped table-hover table-bordered">
     <thead>
@@ -118,19 +116,19 @@ function formChk(){
     <tbody>
      <c:choose>
         <c:when test="${list.size()>0}">
-            <c:forEach var="userVo" items="${list}">
+            <c:forEach var="userVo" items="${list}" varStatus="status">
 			     <tr>
 			        <td class="text-center"><c:out value="${userVo.userId}"/></td>
 			        <td class="text-center"><c:out value="${userVo.userNm}"/></td>
 			        <td class="text-center">
-			        	<select name="pm" id="pm" class="form-control">
+			        	<select name="pm${status.index}" id="pm${status.index}" class="form-control">
 			        		<option value=3 <c:if test="${userVo.pm eq 3}" > selected </c:if> >관리자</option>
 			        		<option value=2 <c:if test="${userVo.pm eq 2}" > selected </c:if> >인터랙터</option>
 			        		<option value=1 <c:if test="${userVo.pm eq 1}" > selected </c:if> >뷰어</option>
 			        	</select>
 			        </td>
 			        <td class="text-center"><c:out value="${userVo.userEmail}"/></td>
-			        <td class="text-center"><button class="btn btn-success" onclick="javascript:updateUser('${userVo.userId}');">수정</button>
+			        <td class="text-center"><button class="btn btn-success" onclick="javascript:updateUser('${userVo.userId}','${status.index}');">수정</button>
 			        <button class="btn btn-danger" onclick="javascript:deleteUser('${userVo.userId}');">삭제</button></td>
 			     </tr>
 			     
@@ -185,10 +183,5 @@ function formChk(){
       
     </div>
   </div>
-
-
-   
-  <!-- footer -->
-<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -95,5 +95,11 @@ public class LoginCtr {
 		return "common/main";
 		
 	}
+	@RequestMapping("/admin")
+	public String admin(HttpServletRequest req,Model model){
+
+		return "admin/main";
+		
+	}
 
 }
