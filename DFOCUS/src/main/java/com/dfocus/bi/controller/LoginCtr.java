@@ -59,21 +59,21 @@ public class LoginCtr {
 		logger.info("로그인후id: "+userVo.getUserId());
 		logger.info("로그인후pwd: "+userVo.getUserPwd());
 		logger.info("로그인후pwd: "+userVo.getPm());
-		try {
-			ticket = TableauTicket.getTableauTicket(TABLEAU_SERVER, userId);
+/*		try {
+			ticket = TableauTicket.getTableauTicket(TABLEAU_SERVER, "hgkang");
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		logger.info("!!!!!!!!!!!!!!!!!<" + ticket + ">!!!!!!!!!!!!!!!!!!");
 		if(userVo.getCheck()==0) {
 			model.addAttribute("message", "아이디와 비밀번호를 확인해 주세요." );
 			return "home";
 		}
-		else if(ticket=="-1" || ticket==null ) {
+/*		else if(ticket=="-1" || ticket==null ) {
 			 model.addAttribute("message", "인증되지 않은 사용자입니다." );
 			 return "home";
-		}
+		}*/
 		session.setAttribute("userVo", userVo);
 		model.addAttribute("ticket", ticket );
 		return "common/main";
@@ -100,6 +100,20 @@ public class LoginCtr {
 
 		return "admin/main";
 		
+	}
+	@RequestMapping("/tableauTicket")
+	public String tableauTicket(HttpServletRequest req,Model model) {
+		String ticket=null; 
+		try {
+			ticket = TableauTicket.getTableauTicket(TABLEAU_SERVER, "hgkang");
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String viewnum=(String) req.getParameter("number");
+		String url="http://bi.dfocus.net/"+"trusted/"+ticket+"/t/namyangju/views/___2/sheet"+viewnum;
+		model.addAttribute("url", url );
+		return "common/page";
 	}
 
 }

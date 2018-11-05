@@ -1,3 +1,10 @@
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.OutputStreamWriter"%>
 <%@page import="com.dfocus.bi.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -50,38 +57,47 @@ if(userVo.getUserId()==null){
 	href="${pageContext.request.contextPath}/resources/css/login.css">
 <title>Dfocus</title>
 
-
-
-<!-- 태블로 대시보드 스크립트 -->
- <script type="text/javascript">
-        function initViz(ticket) {
-            var containerDiv = document.getElementById("vizContainer"),
-                url = "http://bi.dfocus.net/views/_21/sheet0_1"
-            /*     url+=ticket
-                url+="/sales/views/US_Superstore_10_0/Overview" */
-                alert(url);
-                options = {
-                    hideTabs: true,
-                    onFirstInteractive: function () {
-                        console.log("Run this code when the viz has finished loading.");
-                    }
-                };
-            var viz = new tableau.Viz(containerDiv, url, options); 
-
-        }
-</script>
-
-
-
-
 </head>
-<body  onload="initViz('${ticket}')";>
+<body >
 <!-- header -->
-<jsp:include page="../common/header.jsp"/>
-
-<div id="vizContainer" style="width:800px; height:700px; position:absolute;
-  top:15%;left:25%;"></div>
-
+<table>
+	<tr>
+		<jsp:include page="../common/header.jsp"/>
+	</tr>
+	<tr>
+		<td>
+		<div style="height: 900px;">
+      		<ul class="sidebar navbar-nav" style="height: 900px;">
+       			<li class="nav-item">
+       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=0" target="contents">
+       					<span>남양주희망케어-지역별</span>
+       				</a>
+       			</li>
+       			<li class="nav-item">
+       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=1" target="contents">
+       					<span>남양주희망케어-연도별</span>
+       				</a>
+       			</li>
+       			<li class="nav-item">
+       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=2" target="contents">
+       					<span>남양주희망케어-후원</span>
+       				</a>
+       			</li>
+       			<li class="nav-item">
+       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=3" target="contents">
+       					<span>남양주희망케어-장기후원</span>
+       				</a>
+       			</li>
+      		</ul>
+      		</div>
+		</td>
+		<td style="width:100%; height:900px;"">
+      			<iframe id="contents" name="contents" style="display:block; width:100%; height:820px;"  frameborder="0"
+				src="http://bi.dfocus.net/trusted/${ticket}/namyangju/views/___2/sheet0?:embed=y&:showAppBanner=false&:display_count=no&:showVizHome=no">
+	  			</iframe>
+		</td>
+	</tr>
+</table>
 </body>
 
 

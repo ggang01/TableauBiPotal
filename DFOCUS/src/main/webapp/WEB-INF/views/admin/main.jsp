@@ -28,32 +28,35 @@
 
 </head>
 <body>
-<jsp:include page="../common/header.jsp"/>
-        
-
-      <!-- Navbar -->
-      <ul class="sidebar navbar-nav">
-       	<li class="nav-item">
-       		<a class="nav-link">
-       			<span>유저관리</span>
-       		</a>
-       	</li>
-       	<li class="nav-item">
-       		<a class="nav-link">
-       			<span>메뉴관리</span>
-       		</a>
-       	</li>
-      </ul>
-      <div class="container">
-      	<iframe id="contents" name="contents" style="display:block; width:100%; height:820px;"  frameborder="0"
-			src="${pageContext.request.contextPath}/admin/userList" >
-	  	</iframe>
-	  </div>
-      
-
-
-                     
-                 
-
+<table border=0 >
+	<tr>
+		<jsp:include page="../common/header.jsp"/>
+	</tr>
+	<tr>
+		<td valign="top">
+			<div style="height: 900px;">
+      		<ul class="sidebar navbar-nav" style="height: 900px;">
+       			<li class="nav-item">
+       				<a class="nav-link" href="${pageContext.request.contextPath}/admin/userList" target="contents">
+       					<span>유저관리</span>
+       				</a>
+       			</li>
+       			<li class="nav-item">
+       				<a class="nav-link">
+       					<span>메뉴관리</span>
+       				</a>
+       			</li>
+      		</ul>
+      		</div>
+		</td>
+		<td style="width:100%; height:900px;"">
+			 <div class="container">
+      			<iframe id="contents" name="contents" style="display:block; width:100%; height:820px;"  frameborder="0"
+				src="${pageContext.request.contextPath}/admin/userList" >
+	  			</iframe>
+			 </div>
+		</td>
+	</tr>
+</table>
 </body>
 </html>
