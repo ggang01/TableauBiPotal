@@ -65,37 +65,9 @@ if(userVo.getUserId()==null){
 		<jsp:include page="../common/header.jsp"/>
 	</tr>
 	<tr>
-		<td>
-		<div style="height: 900px;">
-      		<ul class="sidebar navbar-nav" style="height: 900px;">
-       			<li class="nav-item">
-       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=0" target="contents">
-       					<span>남양주희망케어-지역별</span>
-       				</a>
-       			</li>
-       			<li class="nav-item">
-       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=1" target="contents">
-       					<span>남양주희망케어-연도별</span>
-       				</a>
-       			</li>
-       			<li class="nav-item">
-       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=2" target="contents">
-       					<span>남양주희망케어-후원</span>
-       				</a>
-       			</li>
-       			<li class="nav-item">
-       				<a class="nav-link" href="${pageContext.request.contextPath}/tableauTicket?number=3" target="contents">
-       					<span>남양주희망케어-장기후원</span>
-       				</a>
-       			</li>
-      		</ul>
-      		</div>
-		</td>
-		<td style="width:100%; height:900px;"">
       			<iframe id="contents" name="contents" style="display:block; width:100%; height:820px;"  frameborder="0"
 				src="http://bi.dfocus.net/trusted/${ticket}/namyangju/views/___2/sheet0?:embed=y&:showAppBanner=false&:display_count=no&:showVizHome=no">
 	  			</iframe>
-		</td>
 	</tr>
 </table>
 </body>

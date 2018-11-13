@@ -30,7 +30,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+<nav class="navbar navbar-expand static-top">
 		<a href="main"><img alt="dfocus" src="${pageContext.request.contextPath}/resources/image/dfocus_logo_1.png" width="200px;" style="margin: 20px;"></a>
 		<div class="headermenu" style="float: right; rightpadding: 10px;">
 <c:choose>
